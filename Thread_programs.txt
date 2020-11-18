@@ -1,0 +1,418 @@
+import java.io.*;
+class exam extends Thread
+{
+ public void run()
+ {
+  int i;
+  try
+  {
+   for(i=1;i<=10;i++)
+   {
+    System.out.println(i);
+    Thread.sleep(1000);
+   } 
+  }
+  catch(InterruptedException e)
+  {
+   System.out.println(e);
+  }
+ }
+}
+class ex
+{
+ public static void main(String s[])
+ {
+  exam t=new exam();
+  t.start();
+  System.out.println(t.isAlive());
+ }
+}
+-------------------------------------------------------------
+IMPLEMENTS RUNNABLE:-
+
+
+import java.io.*;
+import java.lang.*;
+class odd implements Runnable
+{
+ public void run()
+ {
+  try
+  {
+   int i;
+   for(i=1;i<=20;i++)
+   {
+    if(i%2!=0)
+    {
+     System.out.println("ODD:"+i);
+     Thread.sleep(1000);
+    }
+   }
+  }
+  catch(InterruptedException e)
+  {
+  }
+ }
+}
+class even implements Runnable
+{
+ public void run()
+ {
+  try
+  {
+   int i;
+   for(i=1;i<20;i++)
+   {
+    if(i%2==0)
+    {
+     System.out.println("EVEN:"+i);
+     Thread.sleep(1000);
+    }
+   }
+  }
+  catch(InterruptedException e)
+  {
+  }
+ }
+}
+class trun
+{
+ public static void main(String args[])
+ {
+  odd o=new odd();
+  Thread t=new Thread(o);
+  t.start();
+  even e1=new even();
+  Thread t1=new Thread(e1);
+  t1.start();
+ }
+}
+------------------------------------------------------------
+EXTENDS THREAD:-
+
+
+import java.io.*;
+class fibo extends Thread
+{
+ public void run()
+ {
+  try
+  {
+    System.out.println(Thread.currentThread());
+    int fact=1;
+    int f=1,i;
+    for(i=1;i<=5;i++)
+    {
+      f=f*i;
+      System.out.println("factorial value" +f);
+      Thread.sleep(500);
+     }
+   }
+   catch(InterruptedException e)
+   {
+   }
+  }
+}
+ class extend
+ {
+  public static void main(String args[])
+  {
+    fibo f=new fibo();
+    f.start();
+  }
+}
+----------------------------------------------------
+CREATING MULTIPLE THREADS:-
+
+import java.io.*;
+class m1 extends Thread
+{
+ public void run()
+ {
+  try
+  {
+  for(int i=1;i<=5;i++)
+  {
+    System.out.println("TABLE--2");
+    System.out.println(i+"*"+2+"="+i*2);
+    Thread.sleep(1000);
+  }
+  }
+  catch(InterruptedException e)
+  {
+  }
+ }
+}
+class m2 extends Thread
+{
+ public void run()
+ {
+  try
+  {
+  for(int i=1;i<=5;i++)
+  {
+   System.out.println("TABLE--5");
+   System.out.println(i+"*"+5+"="+i*5);
+   Thread.sleep(1000);
+  }
+ }
+ catch(InterruptedException e)
+ {
+ }
+ }
+}
+class m3 extends Thread
+{
+ public void run()
+ {
+  try
+  {
+  for(int i=1;i<=5;i++)
+  {
+   System.out.println("TABLE--10");
+   System.out.println(i+"*"+10+"="+i*10);
+   Thread.sleep(1000);
+  }
+  }
+  catch(InterruptedException e)
+  {
+  }
+ }
+}
+class multithrd
+{
+ public static void main(String s[])
+ {
+  new m1().start();
+  new m2().start();
+  new m3().start();
+ }
+}
+-----------------------------------------------------
+THREAD PRIORITIES:
+
+import java.io.*;
+class thr1 extends Thread
+{
+  public void run()
+  {
+  try
+  {
+  for(int i=0;i<=10;i++)
+  {
+   Thread.sleep(1000);
+   System.out.println("im thread1");
+  }
+  }
+  catch(InterruptedException e)
+  {
+  }
+  }
+}
+class thr2  extends Thread
+{
+  public void run()
+  {
+    try
+    {
+  for(int i=0;i<=10;i++)
+  {
+   Thread.sleep(1000);
+   System.out.println("im thread2");
+  }
+  }
+  catch(InterruptedException e)
+  {
+  }
+  }
+}
+class pri
+{
+  public static void main(String args[])
+  {
+   thr1 t1=new thr1();
+   thr2 t2=new thr2();
+   t1.setPriority(Thread.MAX_PRIORITY);
+   t2.setPriority(Thread.MIN_PRIORITY);
+   t2.start();
+   t1.start();
+  }
+}
+---------------------------------------------------------------
+WITHOUT SYNCHRONIZATION:-
+
+
+import java.io.*;
+class callme
+{
+  public void call(String msg)
+ {
+  System.out.println("[" +msg);
+  try
+  {
+   Thread.sleep(1000);
+  }
+  catch(InterruptedException e)
+  {
+   System.out.println("INTERUPTED");
+  }
+  System.out.println("]");
+ }
+}
+class caller implements Runnable
+{
+ String msg;
+ callme target;
+ Thread t;
+ public caller(callme targ,String s)
+ {
+  target=targ;
+  msg=s;
+  t=new Thread(this);
+  t.start();
+ }
+ public void run()
+ {
+  target.call(msg);
+ }
+}
+class notsync
+{
+ public static void main(String s[])
+ {
+  callme target=new callme();
+  caller ob1=new caller(target,"hello");
+  caller ob2=new caller(target,"synchronized");
+  caller ob3=new caller(target,"world");
+  try
+  {
+   ob1.t.join();
+   ob2.t.join();
+   ob3.t.join();
+  }
+  catch(InterruptedException e)
+  {
+   System.out.println("INTERUPTED");
+  }
+ }
+}
+-----------------------------------------------------------
+SYNCHRONIZED METHOD:-
+
+
+import java.io.*;
+class callme
+{
+  void call(String msg)
+ {
+  System.out.println("[" +msg);
+  try
+  {
+   Thread.sleep(1000);
+  }
+  catch(InterruptedException e)
+  {
+   System.out.println("INTERUPTED");
+  }
+  System.out.println("]");
+ }
+}
+class caller implements Runnable
+{
+ String msg;
+ callme target;
+ Thread t;
+ public caller(callme targ,String s)
+ {
+  target=targ;
+  msg=s;
+  t=new Thread(this);
+  t.start();
+ }
+ public void run()
+ {
+  synchronized(target)
+  {
+   target.call(msg);
+  }
+ }
+}
+class sync1
+{
+ public static void main(String s[])
+ {
+  callme target=new callme();
+  caller ob1=new caller(target,"hello");
+  caller ob2=new caller(target,"synchronized");
+  caller ob3=new caller(target,"world");
+  try
+  {
+   ob1.t.join();
+   ob2.t.join();
+   ob3.t.join();
+  }
+  catch(InterruptedException e)
+  {
+   System.out.println("INTERUPTED");
+  }
+ }
+}
+---------------------------------------------------------
+SYNCHRONIZED BLOCK:-
+
+
+import java.io.*;
+class callme
+{
+  synchronized void call(String msg)
+ {
+  System.out.println("[" +msg);
+  try
+  {
+   Thread.sleep(1000);
+  }
+  catch(InterruptedException e)
+  {
+   System.out.println("INTERUPTED");
+  }
+  System.out.println("]");
+ }
+}
+class caller implements Runnable
+{
+ String msg;
+ callme target;
+ Thread t;
+ public caller(callme targ,String s)
+ {
+  target=targ;
+  msg=s;
+  t=new Thread(this);
+  t.start();
+ }
+ public void run()
+ {
+  target.call(msg);
+ }
+}
+class sync2
+{
+ public static void main(String s[])
+ {
+  callme target=new callme();
+  caller ob1=new caller(target,"hello");
+  caller ob2=new caller(target,"synchronized");
+  caller ob3=new caller(target,"world");
+  try
+  {
+   ob1.t.join();
+   ob2.t.join();
+   ob3.t.join();
+  }
+  catch(InterruptedException e)
+  {
+   System.out.println("INTERUPTED");
+  }
+ }
+}
+----------------------------------------------------------

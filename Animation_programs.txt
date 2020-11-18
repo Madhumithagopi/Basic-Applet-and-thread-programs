@@ -1,0 +1,398 @@
+
+// ball animation
+
+import java.awt.*;
+import java.applet.*;
+//import java.awt.event.*;
+/*
+<applet code="ball" width=700 height=500>
+</applet>
+*/
+
+public class ball extends Applet implements Runnable
+{ 
+int a=100,b=100;
+int x=400,y=300;
+Thread t;
+public void init()
+{
+Color c=new Color(150,100,220);
+setBackground(c);
+t=new Thread(this);
+t.start();
+}
+public void run()
+{
+while(true)
+{
+try
+{
+t.sleep(100);
+}
+catch(Exception e)
+{
+}
+repaint();
+}
+}
+
+public void paint(Graphics g)
+{
+g.setColor(Color.magenta);
+g.fillOval(a,b,60,60);
+if(b<=350)
+b=b+10;
+else
+b=100;
+
+g.fillOval(x,y,60,60);
+if(y>=50)
+y=y-10;
+else
+y=300;
+
+}
+}
+
+
+
+//  Boat animation
+
+
+import java.awt.*;
+import java.applet.*;
+/*
+<applet code=boat width=800 height=700>
+<param name="img" value="boat.jpg">
+</applet>
+*/
+public class boat extends Applet implements Runnable
+{
+Image img;
+int x=10;
+Thread t;
+Color c;
+public void init()
+{
+c=new Color(50,80,210);
+t=new Thread(this);
+t.start();
+}
+public void run()
+{
+while(true)
+{
+try
+{
+t.sleep(500);
+}
+catch(Exception e)
+{
+}
+repaint();
+}
+}
+public void paint(Graphics g)
+{
+img=getImage(getDocumentBase(),getParameter("img"));
+g.drawImage(img,x,255,this);
+x=x+10;
+g.setColor(c);
+g.fillRect(0,330,800,400);
+}
+}
+
+
+
+//Fish animation
+
+
+
+import java.io.*;
+import java.awt.*;
+import java.applet.*;
+
+/*
+<applet code = image width = 800 height =800>
+<param name="img" value=fish.jpg>
+</applet>
+*/
+
+public class image extends Applet implements Runnable
+{
+Thread t;
+Image img,im;
+Image im1,im2;
+int x=300,a=20,b=50,c=700;
+public void init()
+{
+setBackground(Color.blue);
+t=new Thread(this);
+t.start();
+}
+public void run()
+{
+while(true)
+{
+try
+{
+t.sleep(300);
+}
+catch(Exception e)
+{
+}
+repaint();
+}
+}
+public void paint(Graphics g)
+{
+
+img=getImage(getDocumentBase(),getParameter("img"));
+g.drawImage(img,x,400,this);
+x=x-10;
+/*if(x>=50)
+x=x-10;
+else
+x=500;
+*/
+im=getImage(getCodeBase(),"fis.jpg");
+g.drawImage(im,a,300,this);
+a=a+10;
+/*if(a<=400)
+a=a+10;
+else
+a=20;
+*/
+
+im1=getImage(getCodeBase(),"f1.jpg");
+g.drawImage(im1,b,50,this);
+b=b+10;
+
+im2=getImage(getCodeBase(),"f2.jpg");
+g.drawImage(im2,c,200,this);
+c=c-10;
+
+}
+}
+
+
+// Moon animation
+
+
+
+import java.awt.*;
+import java.applet.*;
+/*
+<applet code="moon" width=700 height=600>
+</applet>
+*/
+
+public class moon extends Applet implements Runnable
+{
+Thread t;
+int a=400;
+int b=100;
+
+public void init()
+{
+setBackground(Color.black);
+t= new Thread(this);
+t.start();
+}
+public  void run()
+{
+while(true)
+{
+try
+{
+t.sleep(500);
+}
+catch(Exception e) 
+{
+}
+repaint();
+}
+}
+public void paint(Graphics g)
+{
+g.setColor(Color.cyan);
+
+g.drawString("The Moon",300,500);
+g.setColor(Color.white);
+g.fillOval(350,150,50,50);
+g.setColor(Color.black);
+g.fillOval(a,b,50,50);
+if(a<=350)
+a=400;
+else
+a=a-5;
+if(b>=150)
+b=100;
+else
+b=b+5;
+g.setColor(Color.white);
+for(int i=100;i<=800;i++)
+{
+if(i%100==0)
+{
+g.drawString("*", i,100);
+}
+}
+for(int j=50;j<=850;j++)
+{
+if(j%150==0)
+{
+g.drawString("*",j,180);
+}
+}
+g.drawString("*                                   *                                  *                                               *                                     *",50,250);
+
+}
+}
+
+
+
+//  Sunrise animation
+
+
+import java.awt.*;
+import java.applet.*;
+/*
+<applet code=sunr width=700 height=600>
+</applet>
+*/
+public class sunr extends Applet implements Runnable
+{
+Thread t;
+Color c;
+
+int q=230;
+int m=150,n=150;
+int x[]={50,300,170};
+int y[]={300,300,120};
+int z=3;
+int a[]={300,550,420};
+int b[]={300,300,120};
+public void init()
+{
+c=new Color(100,200,95);
+setBackground(c);
+t=new Thread(this);
+t.start();
+}
+public void run()
+{
+while(true)
+{
+while(q>=100)
+{
+repaint();
+try
+{
+t.sleep(500);
+q=q-5;
+}
+catch(Exception e)
+{
+}
+}
+while(q<=230)
+{
+repaint();
+try
+{
+t.sleep(500);
+q=q+5;
+}
+catch(Exception e)
+{
+}
+}
+
+}
+}
+public void paint(Graphics g)
+{
+c=new Color(150,100,30);
+g.setColor(c);
+g.fillPolygon(x,y,z);
+g.fillPolygon(a,b,z);
+g.setColor(Color.yellow);
+g.fillOval(275,q,50,50);
+g.setColor(Color.black);
+if(q>=100)
+{
+g.drawString("***Good Morning***",m,50);
+m=m+30;
+}
+if(q==100)
+{
+setBackground(Color.magenta);
+} 
+
+
+
+/*if(q>=100)
+{
+q=q-5;
+}
+*/
+
+}
+}
+
+
+
+// ball animation
+
+
+
+import java.awt.*;
+import java.applet.*;
+
+/*<applet code=animation1 width=700 height=500>
+</applet>*/
+
+public class animation1 extends Applet implements Runnable
+{
+        Thread t;
+        String msg;
+        int x,y,flag;
+        public void init()
+        {
+                x=0;
+                y=150;
+                flag = -1;
+                setBackground(Color.green);
+                setForeground(Color.red);
+                t = new Thread(this);
+                t.start();
+        }
+
+        public void run()
+        {
+                try
+                {
+                        for(x=0;x<=500;x+=10)
+                        {
+                                if(flag == -1)
+                                        y = y + 100;
+                                else
+                                        y = y - 100;
+                                repaint();
+                                Thread.sleep(750);
+                                flag = -(flag);
+                        }
+                }
+                catch(InterruptedException e)
+                {       }
+        }
+
+        public void paint(Graphics g)
+        {
+                g.fillOval(x,y,50,50);
+        }
+}
+
+
+
